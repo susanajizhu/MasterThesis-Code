@@ -9,14 +9,14 @@ This repository contains the code developed for my Master's thesis about single 
 **A. Simulations**
 1) CreateEv_Func.R: Generate event timing (EV) files
 2) RunMethods_Func.R: Run LS-A, LS-S, ELS-S, and FS methods 
-3) Simulation_Func.R: Full simulation process (makes use of create_ev() and run_methods() functions)
-4) Simulations.R: Run the simulations according to the conditions specified
-5) PlotResults.R: Plot RMSE and Pearson's correlation values
+3) **Simulation_Func.R**: Full simulation process (makes use of create_ev() and run_methods() functions)
+4) **Simulations.R**: Run the simulations according to the conditions specified
+5) **PlotResults.R**: Plot RMSE and Pearson's correlation values
 6) "real-data" directory: contains an example of a real data set (same data was used for the empirical studies) <br>
 
 **B. Empirical experiment**
-1) AnalysisFlaker.R: Run LS-A, LS-S, ELS-S, and FS methods
-2) PlotFlaker.R: Plot observed BOLD signal vs predicted signal for one voxel
+1) **AnalysisFlaker.R**: Run LS-A, LS-S, ELS-S, and FS methods
+2) **PlotFlaker.R**: Plot observed BOLD signal vs predicted signal for one voxel
 3) "data" directory: contains the data set used for the analysis
 
 ## How to Run the Code
