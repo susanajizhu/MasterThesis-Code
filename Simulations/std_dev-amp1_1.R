@@ -94,6 +94,6 @@ sd_stmat <- df_stmat %>%
   group_by(ISI, latency, duration, method) %>%
   summarise(sd_stmat = round(sd(stmat),3), .groups = 'drop')
 
-print(xtable(sd_stmat, type = "latex"), file = "std_dev-amp1_1.tex")
+print(xtable(sd_stmat, type = "latex"), file = paste0(path, 'std_dev-amp1_1.tex'))
 
 
