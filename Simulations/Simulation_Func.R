@@ -31,7 +31,7 @@
 #     5) corr         : Matrix of correlation values (iterations × methods)
 #     6) out_LA.all   : List of outputs from lm objects from LS-A models
 #     7) out_LS.all   : List of outputs from lm objects from LS-S models
-#     8) out_ExtLS.all: List of outputs from lm objects from ELS-S models
+#     8) out_ELS.all  : List of outputs from lm objects from ELS-S models
 #     9) out_FS.all   : List of outputs from lm objects from FS models   
 #
 # Additional notes:
@@ -70,7 +70,7 @@ simulation <- function(N, isi_a, isi_b, dur_a, dur_b, lat_a, lat_b, amp_a, amp_b
   #Store output results from lm
   out_LA.all <- vector('list', N)
   out_LS.all <- vector('list', N)
-  out_ExtLS.all <- vector('list', N)
+  out_ELS.all <- vector('list', N)
   out_FS.all <- vector('list', N)
   
   #Store BOLD signal
@@ -159,7 +159,7 @@ simulation <- function(N, isi_a, isi_b, dur_a, dur_b, lat_a, lat_b, amp_a, amp_b
     stmat <- results$stmat
     out_LA <- results$out_LA
     out_LS <- results$out_LS
-    out_ExtLS <- results$out_ExtLS
+    out_ELS <- results$out_ELS
     out_FS <- results$out_FS
     
     cat('Beta estimates from Iteration', s, ':','\n')
@@ -172,7 +172,7 @@ simulation <- function(N, isi_a, isi_b, dur_a, dur_b, lat_a, lat_b, amp_a, amp_b
     stmat.all[,,s] <- stmat #Store estimates from each iteration
     out_LA.all[[s]] <- out_LA #Store output results from each iteration
     out_LS.all[[s]] <- out_LS
-    out_ExtLS.all[[s]] <- out_ExtLS
+    out_ELS.all[[s]] <- out_ELS
     out_FS.all[[s]] <- out_FS
     
     #Calculate and store RMSE
@@ -205,7 +205,7 @@ simulation <- function(N, isi_a, isi_b, dur_a, dur_b, lat_a, lat_b, amp_a, amp_b
        stmat.all, 
        out_LA.all, 
        out_LS.all, 
-       out_ExtLS.all,
+       out_ELS.all,
        out_FS.all,
        file = (paste0('./Results/','isi', isi_a, '_', isi_b, '-', 
                       'dur', dur_a, '_', dur_b, '-',
@@ -222,7 +222,7 @@ simulation <- function(N, isi_a, isi_b, dur_a, dur_b, lat_a, lat_b, amp_a, amp_b
               corr = corr,
               out_LA.all = out_LA.all, 
               out_LS.all = out_LS.all,
-              out_ExtLS.all = out_ExtLS.all, 
+              out_ELS.all = out_ELS.all, 
               out_FS.all = out_FS.all))
 }
 

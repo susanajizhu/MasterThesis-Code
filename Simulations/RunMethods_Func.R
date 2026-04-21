@@ -21,12 +21,14 @@
 #                     (rows = trials, columns = methods)
 #     2) out_LA     : output from lm object from fitting LS-A model
 #     3) out_LS     : List of outputs from lm objects from fitting LS-S model
-#     4) out_ExtLS  : List of outputs from lm objects from fitting ELS-S model
+#     4) out_ELS    : List of outputs from lm objects from fitting ELS-S model
 #     5) out_FS     : List of outputs from lm objects from fitting FS model
 #
 # Additional notes:
-#   1) For the FS method, the maximum beta value across stimulus regressors
-#      is selected for each trial as the activation estimate
+#     1) For the ELS-S method, the beta coefficient associated with the
+#        canonical HRF is selected for each trial as the activation estimate
+#     2) For the FS method, the maximum beta value across stimulus regressors
+#        is selected for each trial as the activation estimate
 #
 # ------------------------------------------------------------------------------
 
@@ -38,7 +40,7 @@ run_methods <- function(n_trial, functional_data = 'simulated_filtered_func.nii.
   #Read data and create fMRI designs
   tims_LA <- fmristat::read_FSL_featdir('./datasets/analysis/', functional_data = functional_data)
   tims_LS <- fmristat::read_FSL_featdir('./datasets/analysis/', functional_data = functional_data)
-  tims_ExtLS <- fmristat::read_FSL_featdir('./datasets/analysis/', functional_data = functional_data)
+  tims_ELS <- fmristat::read_FSL_featdir('./datasets/analysis/', functional_data = functional_data)
   tims_FS <- fmristat::read_FSL_featdir('./datasets/analysis/', functional_data = functional_data)
   
   data <- niftiR6::readNifti(tims_LA$get_link()) #Same for all methods
@@ -51,8 +53,8 @@ run_methods <- function(n_trial, functional_data = 'simulated_filtered_func.nii.
   tims_LS$trial_model <- 'LS+S'
   tims_LS$make_design_matrix()
   
-  tims_ExtLS$trial_model <- 'LS+T+D+S'
-  tims_ExtLS$make_design_matrix()
+  tims_ELS$trial_model <- 'LS+T+D+S'
+  tims_ELS$make_design_matrix()
   
   tims_FS$trial_model <- 'FS+S'
   tims_FS$make_design_matrix()
@@ -63,7 +65,7 @@ run_methods <- function(n_trial, functional_data = 'simulated_filtered_func.nii.
   
   out_LA <- vector("list", 1) 
   out_LS <- vector("list", length(tims_LS$get_design_matrix()))
-  out_ExtLS <- vector("list", length(tims_ExtLS$get_design_matrix()))
+  out_ELS <- vector("list", length(tims_ELS$get_design_matrix()))
   out_FS <- vector("list", length(tims_FS$get_design_matrix()))
   
   #Run LS-A Method
@@ -77,10 +79,12 @@ run_methods <- function(n_trial, functional_data = 'simulated_filtered_func.nii.
     stmat[i,2] <- coef(out_LS[[i]])[2]
   }
   #Run ELS-S Method
-  for(j in 1:length(tims_ExtLS$get_design_matrix())) {
-    X_ExtLS <- tims_ExtLS$get_design_matrix()[[j]]
-    out_ExtLS[[j]] <- lm(y ~ 1 + X_ExtLS)
-    stmat[j,3] <- coef(out_ExtLS[[j]])[2]
+  for(j in 1:length(tims_ELS$get_design_matrix())) {
+    X_ELS <- tims_ELS$get_design_matrix()[[j]]
+    out_ELS[[j]] <- lm(y ~ 1 + X_ELS)
+    stmat[j,3] <- coef(out_ELS[[j]])[2]
+    #out_coef <- coef(out_ELS[[j]])
+    #stmat[j, 3] <- sign(out_coef[2])*sqrt(out_coef[2]^2 + out_coef[3]^2 + out_coef[4]^2)
   }
   #Run FS Method
   for(k in 1:length(tims_FS$get_design_matrix())) {
@@ -92,6 +96,6 @@ run_methods <- function(n_trial, functional_data = 'simulated_filtered_func.nii.
   return(list(stmat = stmat,
               out_LA = out_LA,
               out_LS = out_LS, 
-              out_ExtLS = out_ExtLS,
+              out_ELS = out_ELS,
               out_FS = out_FS))
 }

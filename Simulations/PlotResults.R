@@ -14,8 +14,8 @@
 #
 # Amplitude conditions:
 #   amp1_1: Fixed amplitude at 1
-#   amp2_4: Amplitude sampled from U[2,4]
-#   amp4_6: Amplitude sampled from U[4,6]
+#   amp2_4: Amplitude sampled from the uniform distribution in the range [2,4]
+#   amp4_6: Amplitude sampled from the uniform distribution in the range [4,6]
 #
 # Outputs:
 #   For each amplitude condition, the script saves:

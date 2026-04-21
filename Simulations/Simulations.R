@@ -38,18 +38,17 @@ c1 <- simulation(N = 100,
                  dur_a = 2, dur_b = 2,
                  lat_a = 0, lat_b = 0,
                  amp_a = 1, amp_b = 1)
-
 c2 <- simulation(N = 100,
                  isi_a = 8, isi_b = 10,
                  dur_a = 2, dur_b = 2,
                  lat_a = 0, lat_b = 0,
                  amp_a = 2, amp_b = 4)
-
 c3 <- simulation(N = 100,
                  isi_a = 8, isi_b = 10,
                  dur_a = 2, dur_b = 2,
                  lat_a = 0, lat_b = 0,
                  amp_a = 4, amp_b = 6)
+
 
 
 
